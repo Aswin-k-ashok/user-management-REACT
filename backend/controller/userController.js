@@ -67,7 +67,7 @@ const deleteUser = asyncHandler(async (req,res,next) => {  // delete/:id
 
 })
 
-const updateUser = asyncHandler(async (req,res,next) => {  // /edit/:id
+const updateUser = asyncHandler(async (req,res,next) => {  // /edit/:id ~post
   const newUserData ={
 name:req.body.name,
 email:req.body.email
@@ -90,7 +90,19 @@ const getUser = asyncHandler (async (req,res,next) =>{  // /edit/:id
     const user = await User.findById(req.params.id)
     res.json(user)
     })
+
+
+    const getOneUserBySearch =asyncHandler (async (req,res) =>{
+        const { search } =req.body
+    
+        try {
+            const users = await User.find({name:search})
+            res.json(users)
+        } catch (error) {
+            res.json(error)
+        }
+    })
         
 
 
-module.exports = {SignUpUser,authUser,deleteUser,updateUser,getUser,getAllUsers}
+module.exports = {SignUpUser,authUser,deleteUser,updateUser,getUser,getAllUsers,getOneUserBySearch}
